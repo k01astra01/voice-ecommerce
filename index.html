@@ -17,4 +17,35 @@
   <header>
     <h1>🛍 Voice Shop</h1>
     <nav>
-      <button onclick="loadPage('home'
+      <button onclick="loadPage('home')">Home</button>
+      <button onclick="loadPage('products')">Products</button>
+      <button onclick="loadPage('cart')">Cart</button>
+    </nav>
+  </header>
+
+  <!-- SPA CONTENT AREA -->
+  <main id="app">
+    <!-- Pages load here -->
+  </main>
+
+  <!-- ============================= -->
+  <!-- ELEVENLABS VOICE WIDGET (IMPORTANT) -->
+  <!-- ============================= -->
+
+  <!-- 1️⃣ Load widget script FIRST -->
+  <script src="https://elevenlabs.io/convai-widget/index.js"></script>
+
+  <!-- 2️⃣ Agent connection -->
+  <elevenlabs-convai
+    agent-id="PASTE_YOUR_AGENT_ID_HERE"
+  ></elevenlabs-convai>
+
+  <!-- ============================= -->
+  <!-- APP SCRIPTS (AFTER WIDGET) -->
+  <!-- ============================= -->
+
+  <script src="./data/products.js"></script>
+  <script src="./app.js"></script>
+
+</body>
+</html>
