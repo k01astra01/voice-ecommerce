@@ -12,6 +12,9 @@ function loadPage(page) {
       if (page === "cart") renderCart();
     });
 }
+document.addEventListener("elevenlabs-convai:call", (event) => {
+  console.log("VOICE TOOL RECEIVED:", event.detail);
+});
 
 // RENDER PRODUCTS
 function renderProducts() {
@@ -63,3 +66,4 @@ document.addEventListener("elevenlabs-convai:call", (event) => {
     if (product) addToCart(product.id);
   }
 });
+
