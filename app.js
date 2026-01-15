@@ -1,79 +1,87 @@
-const app = document.getElementById("app");
-let cart = [];
+/*************************************************
+ * app.js – Voice-enabled E-commerce SPA
+ *************************************************/
 
-// SPA PAGE LOADER
+/* -------------------------------
+   SIMPLE SPA NAVIGATION
+--------------------------------*/
+
 function loadPage(page) {
-  fetch(`pages/${page}.html`)
-    .then(res => res.text())
-    .then(html => {
-      app.innerHTML = html;
+  const content = document.getElementById("content");
 
-      if (page === "products") renderProducts();
-      if (page === "cart") renderCart();
+  if (!content) {
+    console.error("Content container not found");
+    return;
+  }
+
+  fetch(`${page}.html`)
+    .then((res) => res.text())
+    .then((html) => {
+      content.innerHTML = html;
+      history.pushState({ page }, "", `#${page}`);
+    })
+    .catch((err) => {
+      console.error("Failed to load page:", err);
     });
 }
-document.addEventListener("elevenlabs-convai:call", (event) => {
-  console.log("VOICE TOOL RECEIVED:", event.detail);
-});
 
-// RENDER PRODUCTS
-function renderProducts() {
-  const list = document.getElementById("product-list");
-  PRODUCTS.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-      <h3>${p.name}</h3>
-      <p>₹${p.price}</p>
-      <button onclick="addToCart(${p.id})">Add to Cart</button>
-    `;
-    list.appendChild(div);
-  });
-}
+/* -------------------------------
+   CART LOGIC
+--------------------------------*/
 
-// CART FUNCTIONS
-function addToCart(id) {
-  const product = PRODUCTS.find(p => p.id === id);
+let cart = [];
+
+function handleAddToCart(product) {
+  if (!product) return;
+
   cart.push(product);
-  alert(`${product.name} added to cart`);
+  console.log("Cart updated:", cart);
+
+  alert(`${product} added to cart`);
 }
 
-function renderCart() {
-  const ul = document.getElementById("cart-items");
-  ul.innerHTML = "";
-  cart.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - ₹${item.price}`;
-    ul.appendChild(li);
+/* -------------------------------
+   ELEVENLABS CLIENT TOOL REGISTRATION
+--------------------------------*/
+
+const voiceAgent = document.getElementById("voiceAgent");
+
+if (!voiceAgent) {
+  console.error("Voice agent element not found");
+} else {
+  voiceAgent.addEventListener("elevenlabs-convai:ready", () => {
+    console.log("ConvAI widget ready");
+
+    voiceAgent.registerClientTools({
+      navigate: {
+        description: "Navigate to a page",
+        parameters: {
+          page: { type: "string" }
+        },
+        handler: ({ page }) => {
+          console.log("Client navigating to:", page);
+          loadPage(page);
+        }
+      },
+
+      add_to_cart: {
+        description: "Add product to cart",
+        parameters: {
+          product: { type: "string" }
+        },
+        handler: ({ product }) => {
+          console.log("Client adding to cart:", product);
+          handleAddToCart(product);
+        }
+      }
+    });
   });
 }
 
-// INITIAL LOAD
-loadPage("home");
+/* -------------------------------
+   INITIAL PAGE LOAD
+--------------------------------*/
 
-// VOICE TOOL HANDLER
-window.addEventListener("elevenlabs-convai:call", (event) => {
-  console.log("VOICE TOOL RECEIVED FULL:", event.detail);
-
-  const config = event.detail?.config;
-  if (!config) return;
-
-  const toolName = config.name;
-  const args = config.arguments || {};
-
-  if (toolName === "navigate" && args.page) {
-    console.log("Navigating to:", args.page);
-    loadPage(args.page);
-  }
-
-  if (toolName === "add_to_cart" && args.product) {
-    console.log("Adding to cart:", args.product);
-    handleAddToCart(args.product);
-  }
+window.addEventListener("DOMContentLoaded", () => {
+  loadPage("home");
 });
-
-
-
-
-
-
