@@ -55,20 +55,24 @@ loadPage("home");
 window.addEventListener("elevenlabs-convai:call", (event) => {
   console.log("VOICE TOOL RECEIVED FULL:", event.detail);
 
-  const toolName = event.detail.config?.name;
-  const args = event.detail.config?.arguments;
+  const config = event.detail?.config;
+  if (!config) return;
 
-  if (!toolName) return;
+  const toolName = config.name;
+  const args = config.arguments || {};
 
-  if (toolName === "navigate") {
+  if (toolName === "navigate" && args.page) {
+    console.log("Navigating to:", args.page);
     loadPage(args.page);
   }
 
-  if (toolName === "add_to_cart") {
+  if (toolName === "add_to_cart" && args.product) {
+    console.log("Adding to cart:", args.product);
     handleAddToCart(args.product);
   }
 });
-;
+
+
 
 
 
