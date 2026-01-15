@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voice Shop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🛍 Voice Shop</h1>
+  <nav>
+    <button onclick="loadPage('home')">Home</button>
+    <button onclick="loadPage('products')">Products</button>
+    <button onclick="loadPage('cart')">Cart</button>
+  </nav>
+</header>
+
+<main id="app"></main>
+
+<!-- ElevenLabs Voice Widget -->
+<script src="https://elevenlabs.io/convai-widget/index.js"></script>
+<elevenlabs-convai agent-id="agent_1901kf05chrhft3sjk27k1efyr6y"></elevenlabs-convai>
+
+<script src="data/products.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
