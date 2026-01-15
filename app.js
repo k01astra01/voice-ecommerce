@@ -52,7 +52,9 @@ function renderCart() {
 loadPage("home");
 
 // VOICE TOOL HANDLER
-document.addEventListener("elevenlabs-convai:call", (event) => {
+window.addEventListener("elevenlabs-convai:call", (event) => {
+  console.log("VOICE TOOL RECEIVED:", event.detail);
+
   const { tool_name, arguments: args } = event.detail;
 
   if (tool_name === "navigate") {
@@ -60,10 +62,9 @@ document.addEventListener("elevenlabs-convai:call", (event) => {
   }
 
   if (tool_name === "add_to_cart") {
-    const product = PRODUCTS.find(p =>
-      p.name.toLowerCase().includes(args.product.toLowerCase())
-    );
-    if (product) addToCart(product.id);
+    handleAddToCart(args.product);
   }
 });
+
+
 
