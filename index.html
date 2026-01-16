@@ -2,51 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Voice Shop</title>
+  <title>Voice Enabled E-Commerce</title>
 
-  <!-- Responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="./style.css" />
+  <!-- Optional basic styling -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #111;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: #fff;
+      margin-right: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    #content {
+      padding: 20px;
+    }
+
+    footer {
+      background: #f4f4f4;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header>
-    <h1>🛍 Voice Shop</h1>
+    <h2>Voice Shop</h2>
     <nav>
-      <button onclick="loadPage('home')">Home</button>
-      <button onclick="loadPage('products')">Products</button>
-      <button onclick="loadPage('cart')">Cart</button>
+      <a href="#home" onclick="loadPage('home')">Home</a>
+      <a href="#products" onclick="loadPage('products')">Products</a>
+      <a href="#cart" onclick="loadPage('cart')">Cart</a>
     </nav>
   </header>
 
-  <!-- SPA CONTENT AREA -->
-  <main id="app">
-    <!-- Pages load here -->
+  <!-- MAIN CONTENT -->
+  <main id="content">
+    <!-- SPA content loads here -->
   </main>
 
-  <!-- ============================= -->
-  <!-- ELEVENLABS VOICE WIDGET (IMPORTANT) -->
-  <!-- ============================= -->
+  <!-- FOOTER -->
+  <footer>
+    <p>Say: “Open products” or “Add running shoes to cart”</p>
+  </footer>
 
-  <!-- 1️⃣ Load widget script FIRST -->
+  <!-- 🔊 ELEVENLABS CONVAI WIDGET (MUST COME FIRST) -->
   <script src="https://elevenlabs.io/convai-widget/index.js"></script>
 
-  <!-- 2️⃣ Agent connection -->
   <elevenlabs-convai
-    agent-id="agent_1901kf05chrhft3sjk27k1efyr6y"
-  ></elevenlabs-convai>
+    id="voiceAgent"
+    agent-id="PASTE_YOUR_AGENT_ID_HERE"
+    style="position: fixed; bottom: 20px; right: 20px;">
+  </elevenlabs-convai>
 
-  <!-- ============================= -->
-  <!-- APP SCRIPTS (AFTER WIDGET) -->
-  <!-- ============================= -->
-
-  <script src="./data/products.js"></script>
-  <script src="./app.js"></script>
+  <!-- APP LOGIC (MUST COME AFTER WIDGET) -->
+  <script src="app.js"></script>
 
 </body>
 </html>
-
