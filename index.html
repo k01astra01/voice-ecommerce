@@ -72,15 +72,18 @@
   <!-- 🔊 ELEVENLABS CONVAI WIDGET (MUST COME FIRST) -->
   <script src="https://elevenlabs.io/convai-widget/index.js"></script>
 
-  <elevenlabs-convai
-    id="voiceAgent"
-    agent-id="agent_1901kf05chrhft3sjk27k1efyr6y"
-    style="position: fixed; bottom: 20px; right: 20px;">
-  </elevenlabs-convai>
+ <elevenlabs-convai
+  id="voiceAgent"
+  agent-id="agent_1901kf05chrhft3sjk27k1efyr6y"
+  tools="client"
+  style="position: fixed; bottom: 20px; right: 20px;">
+</elevenlabs-convai>
+
 
   <!-- APP LOGIC (MUST COME AFTER WIDGET) -->
   <script src="app.js"></script>
 
 </body>
 </html>
+
 
